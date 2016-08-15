@@ -2,6 +2,8 @@ package com.feicuiedu.okhttpdemo;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * 作者：yuanchao on 2016/8/15 0015 11:59
@@ -18,6 +20,8 @@ public class NetClient {
     }
 
     private OkHttpClient okHttpClient;
+    private Retrofit retrofit;
+    private BombApi bombApi;
 
     private NetClient() {
 
@@ -26,11 +30,25 @@ public class NetClient {
         httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
         okHttpClient = new OkHttpClient.Builder()
+                .addInterceptor(new BombInterceptor()) // 统一处理Bomb的必要头字段拦截器
                 .addInterceptor(httpLoggingInterceptor) // 打印日志的拦截器
                 .build();
+
+        retrofit = new Retrofit.Builder()
+                .baseUrl("https://api.bmob.cn")
+                // Gson转换器
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(okHttpClient)
+                .build();
+
+        bombApi = retrofit.create(BombApi.class);
     }
 
     public OkHttpClient getOkHttpClient() {
         return okHttpClient;
+    }
+
+    public BombApi getBombApi() {
+        return bombApi;
     }
 }

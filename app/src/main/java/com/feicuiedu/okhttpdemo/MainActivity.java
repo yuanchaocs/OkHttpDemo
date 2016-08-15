@@ -8,6 +8,7 @@ import android.widget.ListView;
 
 import com.feicuiedu.okhttpdemo.demo.DemoAOkHttpGet;
 import com.feicuiedu.okhttpdemo.demo.DemoBOkHttpPost;
+import com.feicuiedu.okhttpdemo.demo.DemoCRetrofitActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -26,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         // 7.0 ButterKnife
         ButterKnife.bind(this);
 
-        String[] datas = {"OkHttpGet","OkHttpPost"};
+        String[] datas = {"OkHttpGet","OkHttpPost","Retrofit"};
         adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,datas);
         listView.setAdapter(adapter);
     }
@@ -41,6 +42,10 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case 1:
                 intent.setClass(this, DemoBOkHttpPost.class);
+                startActivity(intent);
+                break;
+            case 2:
+                intent.setClass(this, DemoCRetrofitActivity.class);
                 startActivity(intent);
                 break;
         }

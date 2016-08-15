@@ -21,6 +21,8 @@
         </activity>
         <activity android:name=".demo.DemoBOkHttpPost">
         </activity>
+        <activity android:name=".demo.DemoCRetrofitActivity">
+        </activity>
     </application>
 
 </manifest>
